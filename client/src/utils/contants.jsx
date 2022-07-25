@@ -1,0 +1,1 @@
+export const noAvatar = 'https://obs.multicampus.vn/wp-content/uploads/2019/01/avatar.png'

@@ -1,0 +1,198 @@
+@import './variable.scss';
+@import './mixins.scss';
+
+.header {
+    display: flex;
+    background-color: $mainColor;
+    position: fixed;
+    width: 100%;
+    height: 60px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 80px;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999999;
+    transition: 0.5s;
+    cursor: pointer;
+
+    .header-nav {
+        padding: 10px 20px;
+    }
+
+    .header-blank {
+        border-radius: 40px;
+        background-color: rgb(241 245 249);
+
+        .header-user {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 8px;
+
+            .header-avatar {
+                border-radius: 50%;
+                width: 100%;
+                height: 32px;
+                margin-right: 5px;
+                object-fit: cover;
+            }
+        }
+    }
+
+    .header-blank:hover {
+        color: $textGrey;
+        background-color: #F5F7D2;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        .logo-img {
+            max-width: 40px;
+        }
+
+        span {
+            font-size: x-large;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+    }
+
+    form {
+        position: relative;
+        input {
+            padding: 10px 20px;
+            border-radius: 35px;
+            border: none;
+            background-color: rgb(241 245 249);
+        }
+        span {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            cursor: pointer;
+            background-color: rgb(241 245 249);
+        }
+    }
+    .hamburger {
+        display: none;
+        .closed {
+            --size: 25px;
+            height: var(--size);
+            width: var(--size);
+            position: relative;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            span {
+                height: calc(var(--size) / 12);
+                --gap: calc(var(--size) / 24);
+                border-radius: var(--gap);
+                --n_gap: calc(-1 * var(--gap));
+                width: 100%;
+                display: block;
+                background-color: black;
+                position: absolute;
+                transition: transform 0.5s, opacity 0.5s;
+                top: 50%;
+                right: 0;
+            }
+            span:nth-child(1) {
+                transform: translate(0, calc(-1 * var(--size) / 2 + var(--gap)));
+            }
+
+            span:nth-child(2) {
+                transform: translate(0, var(--n_gap));
+                opacity: 1;
+            }
+
+            span:nth-child(3) {
+                transform: translate(0, calc(var(--size) / 2 - var(--gap) * 2));
+            }
+        }
+        .opened {
+            --size: 25px;
+            height: var(--size);
+            width: var(--size);
+            position: relative;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            span {
+                height: calc(var(--size) / 12);
+                --gap: calc(var(--size) / 24);
+                border-radius: var(--gap);
+                --n_gap: calc(-1 * var(--gap));
+                width: 100%;
+                display: block;
+                background-color: black;
+                position: absolute;
+                transition: transform 0.5s, opacity 0.5s;
+                top: 50%;
+                right: 0;
+            }
+
+            span:nth-child(1) {
+                transform: rotate(45deg) translate(var(--n_gap), var(--n_gap));
+            }
+
+            span:nth-child(2) {
+                opacity: 0;
+                transform: translate(0, var(--n_gap)) scale(0.01);
+            }
+
+            span:nth-child(3) {
+                transform: rotate(-45deg) translate(var(--gap), var(--n_gap));
+            }
+        }
+        span:nth-child(2) {
+            width: 80%;
+        }
+        @include maxWidth(768px) {
+            display: block;
+        }
+    }
+    nav {
+        @include maxWidth(768px) {
+            display: none;
+        }
+    }
+    svg {
+        cursor: pointer;
+        font-size: 1.75rem;
+    }
+    @include maxWidth(768px) {
+        padding: 10px 25px;
+    }
+    @include maxWidth(1024px) {
+        padding: 10px 25px;
+    }
+}
+
+.sticky {
+    box-shadow: 0 5px 20px 0 $shadow;
+}
+
+.modal-user {
+    // min-height: 0px;
+    border-radius: 8px;
+    background: $mainColor;
+    box-shadow: rgb(0 0 0 / 12%) 0 2px 12px;
+    position: absolute;
+    top: 45px;
+    right: 80px;
+    display: flex;
+    flex-direction: column;
+
+    .modal-item {
+        text-decoration: none;
+        color: $textColor;
+        padding: 15px 15px 15px 15px;
+    }
+
+    
+}
