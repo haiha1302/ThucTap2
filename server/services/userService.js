@@ -4,7 +4,7 @@ const { OTPServices } = require('./otpservice');
 const sendOTP = require('../utils/sendMail');
 const bcrypt = require('bcrypt');
 const { DB } = require('../database');
-const { JWTServices } = require('./jwtServices');
+// const { JWTServices } = require('./jwtServices');
 
 const UserServices = {
     registerUser: async ({ email, password, username, dateOfBirth }) => {
