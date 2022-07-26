@@ -1,5 +1,5 @@
 const express = require('express');
-const path = require('path')
+const path = require('path');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -45,15 +45,17 @@ app.use('/user', user);
 app.use('/posts', post);
 
 // deployment configuration
-const __variableOfChoice = path.resolve();
+// const __variableOfChoice = path.resolve();
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '/client/build')));
+    // app.use(express.static(path.join(__dirname, 'build')));
 
-    app.get('*', (req, res) => res.sendFile(path.resolve(__variableOfChoice, 'client', 'build', 'index.html')));
+    // app.get('*', (req, res) => res.sendFile(path.resolve(__variableOfChoice, 'client', 'build', 'index.html')));
+    app.get('/*', (req, res) => res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')));
 }
 
-app.use(notFound)
-app.use(errorHandler)
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Server is running in ${process.env.NODE_ENV} mode on port: ${PORT}`));
