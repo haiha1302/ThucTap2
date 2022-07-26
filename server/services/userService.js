@@ -1,6 +1,6 @@
 const Otp = require('otp-generator');
 const ObjectId = require('mongodb').ObjectId
-const { OTPServices } = require('./otpservice');
+const { OTPServices } = require('./otpService');
 const sendOTP = require('../utils/sendMail');
 const bcrypt = require('bcrypt');
 const { DB } = require('../database');
