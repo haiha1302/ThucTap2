@@ -1,31 +1,29 @@
-import './settings.css';
-// import Sidebar from "../../components/sidebar/Sidebar";
 import { useState } from 'react';
-import { FaRegUserCircle } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
+import { FaRegUserCircle } from 'react-icons/fa';
 import { noAvatar } from '../utils/contants';
-import { updateUserAvatar, updateInforUser } from '../redux/slice/userSlice'
+import { updateUserAvatar, updateInforUser } from '../redux/slice/userSlice';
+import '../sass/settings.scss'
 
 const Settings = () => {
     const user = useSelector((state) => state.User.inforUserLogin);
-    // console.log(user)
     const [updateInfor, setUpdateInfor] = useState({
         userId: user._id,
         email: user.email,
-        username: user.username
-    }) 
+        username: user.username,
+    });
     const [file, setFile] = useState(null);
     const [update, setUpdate] = useState(false);
     const [success, setSuccess] = useState(false);
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
-    const onChangeInput = e => {
-        const { name, value } = e.target
+    const onChangeInput = (e) => {
+        const { name, value } = e.target;
         setUpdateInfor({
             ...updateInfor,
-            [name]: value
-        })
-    }
+            [name]: value,
+        });
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -34,24 +32,23 @@ const Settings = () => {
             const data = new FormData();
             const filename = Date.now() + file.name;
             data.append('file', file);
-            data.append('userId', user._id)
+            data.append('userId', user._id);
             data.append('filename', filename);
 
             try {
-                dispatch(updateUserAvatar(data))
+                dispatch(updateUserAvatar(data));
             } catch (err) {
-                console.log(err.message)
+                console.log(err.message);
             }
         }
 
         try {
-            dispatch(updateInforUser(updateInfor))
-            setSuccess(!success)
-            setUpdate(!update)
-        } catch (err) {
-            // dispatch({ type: "UPDATE_FAILURE" });
-        }
+            dispatch(updateInforUser(updateInfor));
+            setSuccess(!success);
+            setUpdate(!update);
+        } catch (err) {}
     };
+
     return (
         <div className="settings">
             <div className="settingsWrapper">
@@ -68,7 +65,6 @@ const Settings = () => {
                         {update ? (
                             <>
                                 <label htmlFor="fileInput">
-                                    {/* <i className="settingsPPIcon far fa-user-circle"></i> */}
                                     <FaRegUserCircle size={22} className="settingsPPIcon" />
                                 </label>
                                 <input
@@ -88,7 +84,7 @@ const Settings = () => {
                         placeholder={user?.username}
                         onChange={onChangeInput}
                         disabled={update ? '' : 'disabled'}
-                        name='username'
+                        name="username"
                     />
                     <label>Email</label>
                     <input
@@ -96,7 +92,7 @@ const Settings = () => {
                         placeholder={user?.email}
                         onChange={onChangeInput}
                         disabled={update ? '' : 'disabled'}
-                        name='email'
+                        name="email"
                     />
                     <button className="settingsSubmit" type="submit">
                         Update
@@ -108,9 +104,8 @@ const Settings = () => {
                     )}
                 </form>
             </div>
-            {/* <Sidebar /> */}
         </div>
     );
-}
+};
 
-export default Settings
+export default Settings;

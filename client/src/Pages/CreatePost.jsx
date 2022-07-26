@@ -1,19 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import QuillEditor from '../components/Editor/QuillEditor';
+import { ToastContainer, toast } from 'react-toastify';
 import { FaPlus } from 'react-icons/fa';
 import http from '../utils/http';
 import '../sass/createPost.scss';
 
 const CreatePost = () => {
+    const author_infor = useSelector((state) => state.User.inforUserLogin);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [category, setCategory] = useState('');
     const [file, setFile] = useState(null);
-    const author_infor = useSelector((state) => state.User.inforUserLogin);
+    const [files, setFiles] = useState([]);
+    const [errorSubmit, setErrorSubmit] = useState('');
     const navigate = useNavigate();
-    const [files, setFiles] = useState([])
 
     const onChangeCats = (e) => {
         setCategory(e.target.value);
@@ -24,7 +26,7 @@ const CreatePost = () => {
     };
 
     const onFilesChange = (files) => {
-        setFiles(files)
+        setFiles(files);
     };
 
     const handleSubmit = async (e) => {
@@ -33,6 +35,7 @@ const CreatePost = () => {
         const newPost = {
             author_id: author_infor._id,
             author_name: author_infor.username,
+            photo: file,
             title,
             content,
             category,
@@ -54,8 +57,21 @@ const CreatePost = () => {
         try {
             const res = await http.post('/posts/create', newPost);
             navigate(`/post/${res.data.insertedId}`, { replace: true });
-        } catch (err) {}
+        } catch (err) {
+            setErrorSubmit(err.response.data.msg);
+        }
     };
+
+    useEffect(() => {
+        const showNoti = () => {
+            const notify = () => toast(errorSubmit);
+
+            if (errorSubmit !== '') {
+                notify();
+            }
+        };
+        showNoti();
+    }, [errorSubmit]);
 
     return (
         <div className="write">
@@ -80,12 +96,6 @@ const CreatePost = () => {
                     />
                 </div>
                 <div className="writeFormGroup">
-                    {/* <ReactQuill
-                        placeholder="Nhập nội dung của bạn"
-                        className="writeInput writeText"
-                        value={content}
-                        onChange={(value) => setContent(value)}
-                    /> */}
                     <QuillEditor
                         placeholder={'Nhập nội dung của bạn...'}
                         onEditorChange={onEditorChange}
@@ -104,11 +114,13 @@ const CreatePost = () => {
                             <option value={'Diy'}>Diy</option>
                         </select>
                     </div>
+
                     <button className="writeSubmit" type="submit">
-                        Publish
+                        Đăng bài
                     </button>
                 </div>
             </form>
+            <ToastContainer />
         </div>
     );
 };

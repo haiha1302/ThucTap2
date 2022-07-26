@@ -46,6 +46,10 @@
                 height: 50vh;
             }
         }
+
+        .quillGroup {
+            margin: 0 150px;
+        }
     }
 
     .groupBtn {
@@ -70,5 +74,9 @@
             cursor: pointer;
             font-size: 16px;
         }
+    }
+
+    .custom-toastify {
+        z-index: 2 !important;
     }
 }

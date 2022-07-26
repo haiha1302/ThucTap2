@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../../redux/slice/userSlice';
+import { useDispatch } from 'react-redux';
 import FormInput from '../FormInput/FormInput';
 import ButtonSubmit from '../ButtonSubmit/ButtonSubmit';
+import { loginUser } from '../../redux/slice/userSlice';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import '../../sass/form.scss';
 
@@ -34,7 +34,7 @@ const FormLogin = () => {
                     password: data.password,
                 }),
             );
-            navigate('/', { replace: true })
+            navigate('/', { replace: true });
         } catch (error) {
             console.log(error.message);
         }

@@ -70,10 +70,10 @@ const Header = () => {
                             {open === true ? <DropMenu isAuth={isAuth} dataUserLogin={currentUser} /> : <></>}
                         </div>
                     ) : (
-                        <>
+                        <div className='header-user'>
                             <BiIcons.BiUserCircle />
                             {open === true ? <DropMenu user={currentUser} /> : <></>}
-                        </>
+                        </div>
                     )}
                 </div>
             </div>

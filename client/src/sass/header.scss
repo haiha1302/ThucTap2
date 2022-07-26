@@ -13,7 +13,7 @@
     top: 0;
     left: 0;
     right: 0;
-    z-index: 999999;
+    z-index: 1;
     transition: 0.5s;
     cursor: pointer;
 
@@ -33,7 +33,7 @@
 
             .header-avatar {
                 border-radius: 50%;
-                width: 100%;
+                width: 32px;
                 height: 32px;
                 margin-right: 5px;
                 object-fit: cover;

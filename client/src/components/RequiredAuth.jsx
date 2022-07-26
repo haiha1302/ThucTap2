@@ -1,36 +1,13 @@
-import { useEffect } from "react";
-import { Navigate } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux'
-import { checkUser } from '../redux/slice/userSlice'
+import { Outlet, Navigate, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const RequiredAuth = (props) => {
-    const user = useSelector(state => state.User.inforUserLogin)
-    const mode = props.mode || 'navigate'
-    const dispatch = useDispatch()
+const PrivateRoute = () => {
+    const location = useLocation();
+    const { inforUserLogin } = useSelector((state) => state.User);
+    
+    if (inforUserLogin === null) return '... LOADING ...';
 
-    useEffect(() => {
-        dispatch(checkUser())
-    }, [])
+    return inforUserLogin ? <Outlet /> : <Navigate to="/login" replace state={{ from: location }} />;
+};
 
-    if (!user) {
-        if (mode === 'navigate') {
-            return <Navigate to='/login' replace={true} /> 
-        }
-
-        if (mode === 'hidden') {
-            return null
-        }
-
-        if (mode === 'fallback') {
-            return <p>This is private area. User should log in to see this.</p>
-        }
-        
-        return null
-    }
-
-    return (
-        props.children
-    )
-}
-
-export default RequiredAuth
+export default PrivateRoute;

@@ -7,7 +7,7 @@ const ListPosts = () => {
     const posts = useSelector((state) => state.Posts.listPostsByUser);
     const { inforUserLogin } = useSelector((state) => state.User);
     const dispatch = useDispatch();
-    console.log(inforUserLogin);
+
     useEffect(() => {
         dispatch(getListPostsByUser(inforUserLogin._id));
     }, [dispatch, inforUserLogin._id]);

@@ -200,8 +200,6 @@ class QuillEditor extends React.Component {
     }
 
     handleChange = (html) => {
-        console.log('html', html);
-
         this.setState(
             {
                 editorHtml: html,
