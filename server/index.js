@@ -1,20 +1,20 @@
-import express, { json } from "express";
-import { config } from "dotenv";
-import cookieParser from "cookie-parser";
-import cors from "cors";
-import fileUpload from 'express-fileupload';
-import { connectToMongo } from "./database";
-import user from "./routes/userRoutes";
-import post from "./routes/postRoute";
+const express = require("express");
+const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+const fileUpload = require('express-fileupload')
+const { connectToMongo } = require("./database");
+const user = require("./routes/userRoutes");
+const post = require("./routes/postRoute");
 
 const app = express();
 
 //config
-config()
+dotenv.config()
 
 const PORT = process.env.PORT || 5000;
 
-app.use(json());
+app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({

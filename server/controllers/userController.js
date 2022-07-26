@@ -106,6 +106,7 @@ const UsersController = {
     },
 
     updateInfor: async (req, res) => {
+        console.log('update-info', req.body);
         try {
             const updateInfor = await DB.users.updateOne({ _id: ObjectId(req.body.userId) }, { $set: req.body });
         } catch (err) {
