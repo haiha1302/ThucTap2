@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDetailPost } from '../../redux/slice/postSlice';
 import ReactQuill from 'react-quill';
@@ -71,9 +71,9 @@ const SinglePost = () => {
                     <div className="singlePostInfo">
                         <span className="singlePostAuthor">
                             Author:
-                            <Link to={`/?user=${post?.username}`} className="link">
+                            {/* <Link to={`/?user=${post?.username}`} className="link"> */}
                                 <b> {post?.author_name}</b>
-                            </Link>
+                            {/* </Link> */}
                         </span>
                         <span className="singlePostDate">{post?.createAt.slice(0, 16)}</span>
                     </div>
