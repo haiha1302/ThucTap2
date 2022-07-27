@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactQuill, { Quill } from 'react-quill';
+import { BsCardImage } from 'react-icons/bs';
+import { RiVideoUploadLine } from 'react-icons/ri';
 import 'react-quill/dist/quill.snow.css';
+import './QuillEditor.css';
 import http from '../../utils/http';
 const __ISMSIE__ = navigator.userAgent.match(/Trident/i) ? true : false;
 
@@ -352,17 +355,35 @@ class QuillEditor extends React.Component {
             <div style={{ width: '70vw' }}>
                 <div id="toolbar">
                     <select className="ql-header" defaultValue={''} onChange={(e) => e.persist()}>
-                        <option value="1" />
-                        <option value="2" />
-                        <option value="" />
+                        <option value="1">Heading 1</option>
+                        <option value="2">Heading 2</option>
+                        <option value="3">Heading 3</option>
+                        <option value="4">Heading 4</option>
+                        <option value="5">Heading 5</option>
+                        <option value="6">Heading 6</option>
+                        <option value={''}></option>
+                    </select>
+                    <select className="ql-size" defaultValue={'medium'} onChange={(e) => e.persist()}>
+                        <option value="small">Small</option>
+                        <option value="medium">Medium</option>
+                        <option value="large">Large</option>
                     </select>
                     <button className="ql-bold" />
                     <button className="ql-italic" />
                     <button className="ql-underline" />
                     <button className="ql-strike" />
-                    <button className="ql-insertImage">I</button>
-                    <button className="ql-insertVideo">V</button>
-                    <button className="ql-insertFile">F</button>
+                    <span className="ql-formats">
+                        <select className="ql-align" />
+                        <select className="ql-color" />
+                        <select className="ql-background" />
+                    </span>
+                    <button className="ql-insertImage">
+                        <BsCardImage />
+                    </button>
+                    <button className="ql-insertVideo">
+                        <RiVideoUploadLine />
+                    </button>
+                    {/* <button className="ql-insertFile">F</button> */}
                     <button className="ql-link" />
                     <button className="ql-code-block" />
                     <button className="ql-video" />
@@ -421,18 +442,26 @@ class QuillEditor extends React.Component {
     };
 
     formats = [
+        'clean',
         'header',
+        'font',
+        'size',
         'bold',
         'italic',
         'underline',
+        'align',
         'strike',
+        'script',
+        'blockquote',
+        'background',
+        'list',
+        'bullet',
+        'indent',
+        'link',
         'image',
         'video',
-        'file',
-        'link',
+        'color',
         'code-block',
-        'video',
-        'blockquote',
         'clean',
     ];
 }
