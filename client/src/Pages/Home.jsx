@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllPosts } from '../redux/slice/postSlice';
 import Posts from '../components/Post/Posts';
 import '../sass/home.scss';
-import SideBar from '../components/SideBar/SideBar'
+import SideBar from '../components/SideBar/SideBar';
 
 const Home = () => {
     const { posts } = useSelector((state) => state.Posts);
@@ -11,7 +11,9 @@ const Home = () => {
 
     useEffect(() => {
         dispatch(getAllPosts());
+        window.scroll(0, 0);
     }, [dispatch]);
+    
     return (
         <>
             <div className="home">

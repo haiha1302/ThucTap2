@@ -20,6 +20,7 @@ const SinglePost = () => {
 
     useEffect(() => {
         dispatch(getDetailPost(id));
+        window.scroll(0, 0)
     }, [id, dispatch]);
 
     const handleDelete = async () => {

@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import FormInput from '../FormInput/FormInput';
 import ButtonSubmit from '../ButtonSubmit/ButtonSubmit';
 import { loginUser } from '../../redux/slice/userSlice';
@@ -12,6 +12,7 @@ const FormLogin = () => {
         email: '',
         password: '',
     });
+    const { inforUserLogin, errorLogin } = useSelector((state) => state.User);
     const [hidePassword, setHidePassword] = useState(true);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -34,17 +35,23 @@ const FormLogin = () => {
                     password: data.password,
                 }),
             );
-            navigate('/', { replace: true });
         } catch (error) {
             console.log(error.message);
         }
     };
+
+    useEffect(() => {
+        if (inforUserLogin) {
+            navigate('/', { replace: true });
+        }
+    }, [inforUserLogin, navigate]);
 
     return (
         <div className="container-form">
             <div className="form">
                 <div className="form-content">
                     <header>Đăng nhập tài khoản</header>
+                    {errorLogin ? <span style={{ color: 'red', alignItem: 'center' }}>{errorLogin}</span> : <></>}
                     <form onSubmit={onLoginSubmit}>
                         <div className="field input-field">
                             <FormInput

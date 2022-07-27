@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { verifyOtp } from '../../redux/slice/userSlice';
@@ -8,16 +8,16 @@ import '../../sass/otp.scss';
 
 const FormValidateOtp = () => {
     const [otp, setOtp] = useState('');
-    const [time, setTime] = useState('4');
+    // const [time, setTime] = useState('4');
     const emailUser = useSelector(state => state.User.email?.email)
     const dispatch = useDispatch()
     const navigate = useNavigate()
    
-    const handleTime = () => {
-        setTimeout(() => {
-            setTime((prev) => prev - 1);
-        }, 1000);
-    };
+    // const handleTime = () => {
+    //     setTimeout(() => {
+    //         setTime((prev) => prev - 1);
+    //     }, 1000);
+    // };
 
     const submitOTP = (e) => {
         e.preventDefault()
@@ -33,27 +33,27 @@ const FormValidateOtp = () => {
         }
     }
 
-    useEffect(() => {
-        handleTime();
-    });
+    // useEffect(() => {
+    //     handleTime();
+    // });
 
     return (
         <div className="container-form">
             <div className="form">
                 <header>Nhập mã OTP của bạn</header>
                 <span>
-                    Mã OTP được gửi qua địa chỉ email của bạn. Mã sẽ hết hạn sau {time < '0' ? 'hết time' : time}s
+                    Mã OTP được gửi qua địa chỉ email của bạn.
                 </span>
                 <form onSubmit={submitOTP}>
                     <div>
                         <div>
                             <FormInput type="text" value={otp} onChange={(e) => setOtp(e.target.value)} />
                         </div>
-                        <div>
+                        {/* <div>
                             <button>Gửi lại mã</button>
-                        </div>
+                        </div> */}
                     </div>
-                    <div>
+                    <div style={{marginTop: '20px'}}>
                         <ButtonSubmit event="Xác nhận" />
                     </div>
                 </form>

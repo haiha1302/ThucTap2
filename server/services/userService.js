@@ -85,7 +85,7 @@ const UserServices = {
             }
         }
 
-        const checkPassword = bcrypt.compare(user.password, password);
+        const checkPassword = await bcrypt.compare(password, user.password);
 
         if (!checkPassword) {
             return {
