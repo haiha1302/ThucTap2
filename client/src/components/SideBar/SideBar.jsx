@@ -1,10 +1,10 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+// import axios from 'axios';
+import { useState } from 'react';
+// import { Link } from 'react-router-dom';
 import './SideBar.css';
 
 export default function Sidebar() {
-    const [cats, setCats] = useState([]);
+    // const [cats, setCats] = useState([]);
 
     //   useEffect(() => {
     //     const getCats = async () => {
@@ -16,14 +16,14 @@ export default function Sidebar() {
     return (
         <div className="sidebar">
             <div className="sidebarItem">
-                <span className="sidebarTitle">ABOUT ME</span>
+                <span className="sidebarTitle">ABOUT THE WEB</span>
                 <img
                     src="https://i.pinimg.com/236x/1e/3f/58/1e3f587572a7a7b20bbf1828595a1786--holiday-party-themes-holiday-gift-guide.jpg"
                     alt=""
                 />
                 <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate qui necessitatibus nostrum illum
-                    reprehenderit.
+                    Đây là nơi mọi người có thể chia sẻ những điều thú vị, những trải nhiệm trong cộng sống đến mọi
+                    người khác.
                 </p>
             </div>
             <div className="sidebarItem">
