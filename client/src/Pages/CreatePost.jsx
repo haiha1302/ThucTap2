@@ -51,7 +51,7 @@ const CreatePost = () => {
             try {
                 const urlImg = await http.post('/posts/uploadFiles', data);
                 newPost.photo = urlImg.data.url;
-            } catch (err) {}
+            } catch (err) { }
         }
 
         try {
@@ -102,22 +102,24 @@ const CreatePost = () => {
                         onFilesChange={onFilesChange}
                     />
                 </div>
-                <div className="groupBtn">
-                    <div className="selectCats">
-                        <label>Chọn thể loại</label>
-                        <select className="selectInput" onChange={onChangeCats}>
-                            <option value={'Sport'}>Sport</option>
-                            <option value={'Food'}>Food</option>
-                            <option value={'Music'}>Music</option>
-                            <option value={'Life'}>Life</option>
-                            <option value={'Health'}>Health</option>
-                            <option value={'Diy'}>Diy</option>
-                        </select>
-                    </div>
+                <div className='writeFormGroup'>
+                    <div className="groupBtn">
+                        <div className="selectCats">
+                            <label>Chọn thể loại</label>
+                            <select className="selectInput" onChange={onChangeCats}>
+                                <option value={'Sport'}>Sport</option>
+                                <option value={'Food'}>Food</option>
+                                <option value={'Music'}>Music</option>
+                                <option value={'Life'}>Life</option>
+                                <option value={'Health'}>Health</option>
+                                <option value={'Diy'}>Diy</option>
+                            </select>
+                        </div>
 
-                    <button className="writeSubmit" type="submit">
-                        Đăng bài
-                    </button>
+                        <button className="writeSubmit" type="submit">
+                            Đăng bài
+                        </button>
+                    </div>
                 </div>
             </form>
             <ToastContainer />

@@ -1,8 +1,11 @@
 .write {
     padding-top: 50px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 
     .writeImg {
-        margin-left: 150px;
         width: 70vw;
         height: 250px;
         border-radius: 10px;
@@ -13,7 +16,6 @@
         position: relative;
 
         .writeFormGroup {
-            margin-left: 150px;
             display: flex;
             align-items: center;
 
@@ -45,34 +47,34 @@
                 font-size: 20px;
                 height: 50vh;
             }
-        }
 
-        .quillGroup {
-            margin: 0 150px;
-        }
-    }
-
-    .groupBtn {
-        position: absolute;
-        top: 20px;
-        right: 50px;
-        
-        .selectCats {
-            margin-bottom: 20px;
-
-            label {
-                padding-right: 4px;
+            .quillGroup {
+                margin: 0 150px;
             }
-        }
 
-        .writeSubmit {
-            color: white;
-            background-color: teal;
-            padding: 10px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 16px;
+            .groupBtn {
+                display: flex;
+                flex-direction: column;
+                margin-top: 30px;
+
+                .selectCats {
+                    margin-bottom: 20px;
+
+                    label {
+                        padding-right: 4px;
+                    }
+                }
+
+                .writeSubmit {
+                    color: white;
+                    background-color: teal;
+                    padding: 10px;
+                    border: none;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    font-size: 16px;
+                }
+            }
         }
     }
 

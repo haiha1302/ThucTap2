@@ -19,6 +19,9 @@
 
     .header-nav {
         padding: 10px 20px;
+        @include maxWidth(768px) {
+            display: none;
+        }
     }
 
     .header-blank {
@@ -43,7 +46,7 @@
 
     .header-blank:hover {
         color: $textGrey;
-        background-color: #F5F7D2;
+        background-color: #f5f7d2;
     }
 
     .logo {
@@ -193,6 +196,4 @@
         color: $textColor;
         padding: 15px 15px 15px 15px;
     }
-
-    
 }

@@ -17,9 +17,9 @@ const Navbar = () => {
     return (
         <div className="hamburger">
             <button onClick={openNav} className='closed' ref={hamRef}>
-                <span>2</span>
-                <span>4</span>
-                <span>6</span>
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
         </div>
     )
