@@ -15,12 +15,15 @@ const OTPServices = {
         try {
             const hashOtp = await bcrypt.hash(otp, 10);
 
+            DB.otps.createIndex({ expireAt: 1 }, { expireAfterSeconds: 0 });
+
             const insertOtp = await DB.otps.insertOne({
                 email: email,
                 username: username,
                 password: password,
                 otp: hashOtp,
-                dateOfBirth: dateOfBirth, 
+                dateOfBirth: dateOfBirth,
+                expireAt: new Date(Date.now() + 60 * 2),
             })
 
             return insertOtp ? {email: email} : 0;

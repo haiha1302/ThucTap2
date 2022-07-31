@@ -62,7 +62,7 @@ const UserServices = {
                 otp: otp,
                 username,
                 password: await bcrypt.hash(password, 10),
-                dateOfBirth,
+                dateOfBirth
             }),
             message: 'Verify your email',
         };
@@ -144,6 +144,11 @@ const UserServices = {
                 return {
                     code: 201,
                     element: user,
+                    userInsertSuccess: {
+                        email: email,
+                        username: lastOtp.username,
+                        avatar: 'https://obs.multicampus.vn/wp-content/uploads/2019/01/avatar.png', 
+                    }
                 };
             }
         } catch (error) {

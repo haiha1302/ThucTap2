@@ -5,6 +5,7 @@ import Posts from '../components/Post/Posts';
 
 const ListPosts = () => {
     const posts = useSelector((state) => state.Posts.listPostsByUser);
+    console.log(posts);
     const { inforUserLogin } = useSelector((state) => state.User);
     const dispatch = useDispatch();
 
@@ -14,7 +15,11 @@ const ListPosts = () => {
 
     return (
         <div>
-            <Posts posts={posts} />
+            {!posts.lenght ? (
+                <Posts posts={posts} />
+            ) : (
+                <div style={{ textAlign: 'center' }}>Bạn chưa có bài viết nào!</div>
+            )}
         </div>
     );
 };

@@ -1,5 +1,5 @@
-const { DB } = require('../database');
 const ObjectId = require('mongodb').ObjectId;
+const { DB } = require('../database');
 const { UserServices } = require('../services/userService');
 const { JWTServices } = require('../services/jwtServices');
 const uploadServices = require('../services/uploadServices');
@@ -25,12 +25,21 @@ const UsersController = {
     //verify email
     verifyAcc: async (req, res) => {
         const { email, otp } = req.body;
-        const { code, element, message } = await UserServices.verifyOtp({ email, otp });
+        const verifySuccess = await UserServices.verifyOtp({ email, otp });
 
-        return res.status(code).json({
-            code,
-            element,
-            message,
+        const token = JWTServices.createToken(verifySuccess.userInsertSuccess);
+
+        res.cookie('access-token', token, {
+            httpOnly: true,
+            secure: false,
+            maxAge: 24 * 60 * 60 * 1000,
+            // expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        });
+
+        res.status(verifySuccess.code).json({
+            code: verifySuccess.code,
+            element: verifySuccess.element,
+            user: verifySuccess.userInsertSuccess
         });
     },
 
@@ -49,7 +58,6 @@ const UsersController = {
             res.cookie('access-token', token, {
                 httpOnly: true,
                 secure: false,
-                // sameSite: 'none',
                 maxAge: 24 * 60 * 60 * 1000,
                 // expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
             });
@@ -106,29 +114,19 @@ const UsersController = {
     },
 
     updateInfor: async (req, res) => {
-        console.log('update-info', req.body);
         try {
-            const updateInfor = await DB.users.updateOne({ _id: ObjectId(req.body.userId) }, { $set: req.body });
+            const dataUpdate = {
+                username: req.body.username,
+                email: req.body.email
+            }
+
+            const updateInfor = await DB.users.updateOne({ _id: ObjectId(req.body.userId) }, { $set: dataUpdate });
+            
+            res.status(200).json({updateInfor})
         } catch (err) {
             res.status(500).json({ msg: err.message });
         }
-    },
-
-    //user detail
-    // userProfile: async (req, res) => {
-    //     try {
-    //         console.log('body', req.body)
-    //         const idUser = req.body.idUser
-    //         console.log('id', idUser)
-    //         const user = await DB.users.findOne({ _id: idUser })
-
-    //         if (!user) res.status(400).json({ msg: 'User is not found' })
-    //         console.log('se', user)
-    //         return res.status(200).json(user);
-    //     } catch (error) {
-    //         res.status(500).json({ msg: error.message })
-    //     }
-    // }
+    }
 };
 
 module.exports = { UsersController };

@@ -62,6 +62,7 @@ const userSlice = createSlice({
 
         [verifyOtp.fulfilled]: (state, action) => {
             state.verify = action.payload.element.insertedId;
+            state.inforUserLogin = action.payload.user
         },
 
         [loginUser.pending]: (state) => {

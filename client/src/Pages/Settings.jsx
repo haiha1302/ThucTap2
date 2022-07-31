@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FaRegUserCircle } from 'react-icons/fa';
 import { noAvatar } from '../utils/contants';
 import { updateUserAvatar, updateInforUser } from '../redux/slice/userSlice';
-import '../sass/settings.scss'
+import '../sass/settings.scss';
 
 const Settings = () => {
     const user = useSelector((state) => state.User.inforUserLogin);
@@ -94,7 +94,7 @@ const Settings = () => {
                         disabled={update ? '' : 'disabled'}
                         name="email"
                     />
-                    <button className="settingsSubmit" type="submit">
+                    <button className="settingsSubmit" type="submit" disabled={update ? '' : 'disabled'}>
                         Update
                     </button>
                     {success && (

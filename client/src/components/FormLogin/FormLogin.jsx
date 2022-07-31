@@ -1,40 +1,27 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import FormInput from '../FormInput/FormInput';
 import ButtonSubmit from '../ButtonSubmit/ButtonSubmit';
 import { loginUser } from '../../redux/slice/userSlice';
+import Errors from '../Errors/Errors';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import '../../sass/form.scss';
 
 const FormLogin = () => {
-    const [data, setData] = useState({
-        email: '',
-        password: '',
-    });
     const { inforUserLogin, errorLogin } = useSelector((state) => state.User);
     const [hidePassword, setHidePassword] = useState(true);
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const onChangeData = (e) => {
-        const { name, value } = e.target;
-        setData({
-            ...data,
-            [name]: value,
-        });
-    };
-
-    const onLoginSubmit = async (e) => {
-        e.preventDefault();
-
+    const onLoginSubmit = (data) => {
         try {
-            dispatch(
-                loginUser({
-                    email: data.email,
-                    password: data.password,
-                }),
-            );
+            dispatch(loginUser(data));
         } catch (error) {
             console.log(error.message);
         }
@@ -52,25 +39,31 @@ const FormLogin = () => {
                 <div className="form-content">
                     <header>Đăng nhập tài khoản</header>
                     {errorLogin ? <span style={{ color: 'red', alignItem: 'center' }}>{errorLogin}</span> : <></>}
-                    <form onSubmit={onLoginSubmit}>
+                    <form onSubmit={handleSubmit(onLoginSubmit)}>
                         <div className="field input-field">
-                            <FormInput
-                                type="email"
+                            <input
                                 placeholder="Email"
-                                value={data.email}
-                                onChange={onChangeData}
-                                inputMode="none"
-                                name="email"
+                                {...register('email', {
+                                    required: 'Email không được để trống',
+                                    pattern: {
+                                        value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                                        message: 'Email không hợp lệ',
+                                    },
+                                })}
                             />
                         </div>
+                        {errors && <Errors>{errors.email?.message}</Errors>}
                         <div className="field input-field">
-                            <FormInput
-                                type={hidePassword === true ? 1 : 0}
+                            <input
+                                type={hidePassword === true ? 'password' : 'text'}
                                 placeholder="Mật khẩu"
-                                value={data.password}
-                                onChange={onChangeData}
-                                inputMode="none"
-                                name="password"
+                                {...register('password', {
+                                    required: 'Mật khẩu không được để trống',
+                                    minLength: {
+                                        value: 8,
+                                        message: 'Mật khẩu có ít nhất 8 ký tự',
+                                    },
+                                })}
                             />
                             <div onClick={() => setHidePassword(!hidePassword)} className="eye-icon">
                                 {hidePassword === true ? (
@@ -80,7 +73,7 @@ const FormLogin = () => {
                                 )}
                             </div>
                         </div>
-
+                        {errors && <Errors>{errors.password?.message}</Errors>}
                         <div className="form-link">
                             <Link to={'/'} className="forgot-pass">
                                 Quên mật khẩu?

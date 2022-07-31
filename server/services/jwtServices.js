@@ -4,7 +4,10 @@ const dotenv = require('dotenv').config();
 
 const JWTServices = {
     createToken: (user) => {
+        if (user === 'undefined') return 'User undefined'
+
         if (!(user.email || user.username || user.avatar)) return 'Cannot sign';
+        
         const accessToken = jwt.sign(
             {
                 email: user.email,

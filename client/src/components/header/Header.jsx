@@ -6,6 +6,7 @@ import Navbar from './Navbar';
 import DropMenu from '../DropMenu/DropMenu';
 import { noAvatar } from '../../utils/contants';
 import * as BiIcons from 'react-icons/bi';
+import * as AiIcons from 'react-icons/ai'
 
 const Header = () => {
     const [open, setOpen] = useState(false);
@@ -44,12 +45,12 @@ const Header = () => {
                     />
                     <span>BlogApp</span>
                 </div>
-                {/* <form>
+                <form>
                     <input type="text" placeholder="Search..." />
                     <span>
                         <AiIcons.AiOutlineSearch />
                     </span>
-                </form> */}
+                </form>
                 <div
                     className="header-blank header-nav"
                     onClick={() => {
