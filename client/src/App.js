@@ -10,23 +10,29 @@ import Settings from './Pages/Settings';
 import ListPosts from './Pages/ListPosts';
 import PrivateRoute from './components/RequiredAuth';
 import NotFound from './Pages/NotFound';
+import WithoutNav from './components/RenderNavBar/WithoutNav';
+import WithNav from './components/RenderNavBar/WithNav';
 
 function App() {
     return (
         <div className="container">
-            <Header />
             <Routes>
-                <Route index element={<Home />} />
-                <Route path="/post/:id" element={<Single />} />
-                <Route path="/login" element={<FormLogin />} />
-                <Route path="/register" element={<FormRegister />} />
-                <Route path="/validate-otp" element={<FormValidateOtp />} />
-                <Route path='*' element={<NotFound />} />
+                <Route element={<WithoutNav />}>
+                    <Route path="/login" element={<FormLogin />} />
+                    <Route path="/register" element={<FormRegister />} />
+                    <Route path="/validate-otp" element={<FormValidateOtp />} />
+                </Route>
 
-                <Route path='/' element={<PrivateRoute />}>
-                    <Route path="profile" element={<Settings />} />
-                    <Route path="create-post" element={<CreatePost />} />
-                    <Route path="list-posts" element={<ListPosts />} />
+                <Route element={<WithNav />}>
+                    <Route index element={<Home />} />
+                    <Route path="/post/:id" element={<Single />} />
+                    <Route path="*" element={<NotFound />} />
+
+                    <Route path="/" element={<PrivateRoute />}>
+                        <Route path="profile" element={<Settings />} />
+                        <Route path="create-post" element={<CreatePost />} />
+                        <Route path="list-posts" element={<ListPosts />} />
+                    </Route>
                 </Route>
             </Routes>
         </div>
