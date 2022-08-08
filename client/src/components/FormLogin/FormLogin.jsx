@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ButtonSubmit from '../ButtonSubmit/ButtonSubmit';
 import { loginUser } from '../../redux/slice/userSlice';
 import Errors from '../Errors/Errors';
+import { IoArrowBackOutline } from 'react-icons/io5';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import '../../sass/form.scss';
 
@@ -37,6 +38,12 @@ const FormLogin = () => {
         <div className="container-form">
             <div className="form">
                 <div className="form-content">
+                    <IoArrowBackOutline
+                        size={25}
+                        onClick={() => {
+                            navigate(-1);
+                        }}
+                    />
                     <header>Đăng nhập tài khoản</header>
                     {errorLogin ? <span style={{ color: 'red', alignItem: 'center' }}>{errorLogin}</span> : <></>}
                     <form onSubmit={handleSubmit(onLoginSubmit)}>

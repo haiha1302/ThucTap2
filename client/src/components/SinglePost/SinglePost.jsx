@@ -1,27 +1,30 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { getDetailPost } from '../../redux/slice/postSlice';
+import { useSelector } from 'react-redux';
 import ReactQuill from 'react-quill';
 import http from '../../utils/http';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import './singlePost.css';
-// import Comments from '../Comments/Comments';
 
 const SinglePost = () => {
     const { id } = useParams();
-    const post = useSelector((state) => state.Posts.detailPost.post);
+    const [post, setPost] = useState({});
     const author_id = useSelector((state) => state.User.inforUserLogin?._id);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [updateMode, setUpdateMode] = useState(false);
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     useEffect(() => {
-        dispatch(getDetailPost(id));
-        window.scroll(0, 0)
-    }, [id, dispatch]);
+        const detailPost = async () => {
+            const getDetail = await http.post(`/posts/${id}`);
+            setPost(getDetail.data.post);
+            setTitle(getDetail.data.post.title);
+            setContent(getDetail.data.post.content);
+        };
+        detailPost();
+        window.scroll(0, 0);
+    }, [id]);
 
     const handleDelete = async () => {
         try {
@@ -50,19 +53,24 @@ const SinglePost = () => {
                 <div className="singlePostWrapper">
                     {post?.photo && <img src={post?.photo ? post?.photo : null} alt="" className="singlePostImg" />}
                     {updateMode ? (
-                        <input
-                            type="text"
-                            value={title}
-                            className="singlePostTitleInput"
-                            autoFocus
-                            onChange={(e) => setTitle(e.target.value)}
-                        />
+                        <>
+                            <input
+                                type="text"
+                                value={title}
+                                className="singlePostTitleInput"
+                                autoFocus
+                                onChange={(e) => setTitle(e.target.value)}
+                            />
+                            <div onClick={() => setUpdateMode(!updateMode)} className="cancelUpdate">
+                                Hủy chỉnh sửa
+                            </div>
+                        </>
                     ) : (
                         <h1 className="singlePostTitle">
                             {title}
                             {post?.author_id === author_id && (
                                 <div className="singlePostEdit">
-                                    <FaEdit className="singlePostIcon" onClick={() => setUpdateMode(true)} />
+                                    <FaEdit className="singlePostIcon" onClick={() => setUpdateMode(!updateMode)} />
                                     <FaTrashAlt className="singlePostIcon" onClick={handleDelete} />
                                 </div>
                             )}
@@ -71,11 +79,9 @@ const SinglePost = () => {
                     <div className="singlePostInfo">
                         <span className="singlePostAuthor">
                             Author:
-                            {/* <Link to={`/?user=${post?.username}`} className="link"> */}
-                                <b> {post?.author_name}</b>
-                            {/* </Link> */}
+                            <b> {post?.author_name}</b>
                         </span>
-                        <span className="singlePostDate">{post?.createAt.slice(0, 16)}</span>
+                        <span className="singlePostDate">{new Date(post?.createAt).toDateString()}</span>
                     </div>
                     {updateMode ? (
                         <ReactQuill
@@ -86,7 +92,7 @@ const SinglePost = () => {
                         />
                     ) : (
                         <>
-                            <div dangerouslySetInnerHTML={{ __html: post?.content }} />
+                            <div dangerouslySetInnerHTML={{ __html: content }} />
                         </>
                     )}
                     {updateMode && (
@@ -96,7 +102,6 @@ const SinglePost = () => {
                     )}
                 </div>
             </div>
-            {/* <Comments /> */}
         </>
     );
 };

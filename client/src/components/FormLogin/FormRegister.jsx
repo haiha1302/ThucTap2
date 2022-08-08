@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import Errors from '../Errors/Errors';
 import ButtonSubmit from '../ButtonSubmit/ButtonSubmit';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { IoArrowBackOutline } from 'react-icons/io5';
 import { registerUser } from '../../redux/slice/userSlice';
 import '../../sass/form.scss';
 
@@ -35,6 +36,12 @@ const FormRegister = () => {
         <div className="container-form">
             <div className="form">
                 <div className="form-content">
+                    <IoArrowBackOutline
+                        size={25}
+                        onClick={() => {
+                            navigate(-1);
+                        }}
+                    />
                     <header>Đăng ký tài khoản</header>
                     <form onSubmit={handleSubmit(onRegisterSubmit)}>
                         <div className="field input-field">
